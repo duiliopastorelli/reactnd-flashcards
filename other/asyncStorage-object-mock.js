@@ -1,5 +1,6 @@
-const mock = {
+export const mock = {
   React: {
+    key: 'React',
     title: 'React',
     questions: [
       {
@@ -13,6 +14,7 @@ const mock = {
     ]
   },
   JavaScript: {
+    key: 'JavaScript',
     title: 'JavaScript',
     questions: [
       {
