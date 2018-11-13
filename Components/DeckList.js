@@ -10,24 +10,45 @@ export default class DeckList extends Component {
     decks: []
   };
 
-  componentDidMount() {
+  //Initiates the data for the UI
+  initiateDecksData = ()=> {
+    //Initiates the AsyncStorage
     initiateStorage();
 
+    //Updates the state with the decks available in the AsyncStorage
     getDecks()
       .then((result) => {
         this.setState({
           decks: result
         })
       });
+  };
+
+  componentDidMount() {
+    //Get the Decks data for populate the UI
+    this.initiateDecksData();
   }
 
+  //Render function for FlatList Component
   renderItem = ({item}) => {
     return <DeckListElement
-      {...item}/>
+      {...item}
+      updateDeck={this.updateDeck}
+      stateUpdater={this.stateUpdater}
+    />
+  };
+
+  //Updates the state from somewhere else in the App
+  stateUpdater = () => {
+    getDecks()
+      .then((result) => {
+        this.setState({
+          decks: result
+        })
+      });
   };
 
   render() {
-    // console.log(this._keyExtractor());
     return (
       <View style={styles.container}>
         <StatusbarSpace/>

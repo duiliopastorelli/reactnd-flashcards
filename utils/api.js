@@ -24,10 +24,20 @@ export function getDecks() {
     });
 }
 
-export function submitEntry({entry, key}) {
-  return AsyncStorage.mergeItem(STORAGE_KEY, JSON.stringify({
-    [key]: entry,
-  }))
+export function submitCard(deckTitle, question, answer, stateUpdater) {
+  //Retrieve the Item
+  AsyncStorage.getItem(STORAGE_KEY)
+    .then(storage => {
+      let parsedStorage = JSON.parse(storage);
+      const objToAdd = {
+        question: question,
+        answer: answer
+      };
+      parsedStorage[deckTitle].questions.push(objToAdd);
+
+      AsyncStorage.mergeItem(STORAGE_KEY, JSON.stringify(parsedStorage))
+        .then(() => stateUpdater());
+    });
 }
 
 export function removeEntry(key) {
