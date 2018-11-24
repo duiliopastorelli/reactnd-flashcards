@@ -1,5 +1,5 @@
 import React from 'react';
-import {Platform, StyleSheet, View, AsyncStorage} from 'react-native';
+import {Platform, StyleSheet, View} from 'react-native';
 import {createBottomTabNavigator, createStackNavigator} from 'react-navigation';
 import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs';
 import DeckList from "./Components/DeckList";

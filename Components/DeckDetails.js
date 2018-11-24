@@ -23,19 +23,23 @@ class DeckDetails extends Component {
         />
 
         <TouchableOpacity
-          onPress={()=>{
+          onPress={() => {
             this.props.navigation.navigate('AddCard', {
-              DeckList: this.props.DeckList,
               DeckDetails: this,
               stateUpdater: this.props.navigation.state.params.stateUpdater,
-            })}
+            })
+          }
           }
           style={styles.btn}>
           <Text>ADD CARD</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
-          onPress={()=>{this.props.navigation.navigate('Quiz')}}
+          onPress={() => {
+            this.props.navigation.navigate('Quiz', {
+              DeckDetails: this,
+            })
+          }}
           style={styles.btn}>
           <Text>START QUIZ</Text>
         </TouchableOpacity>

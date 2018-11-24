@@ -55,6 +55,7 @@ const styles = StyleSheet.create({
   dataWrapper: {
     flex: 1,
     alignItems: 'center',
+    width: 300,
   },
   title: {
     fontSize: 30

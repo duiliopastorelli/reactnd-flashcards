@@ -5,11 +5,20 @@ import {mock} from '../other/asyncStorage-object-mock';
 
 const STORAGE_KEY = 'flashcard:decks';
 
+/**
+ * Initiate the AsyncStorage and populate it with mock data
+ *
+ * @returns {*}
+ */
 export function initiateStorage() {
   return AsyncStorage.mergeItem(STORAGE_KEY, JSON.stringify(mock));
 }
 
-
+/**
+ * Retrieve a deck from the AsyncStorage
+ *
+ * @returns {*|PromiseLike<Array | never>|Promise<Array | never>}
+ */
 export function getDecks() {
   return AsyncStorage.getItem(STORAGE_KEY)
     .then((result) => {
@@ -24,7 +33,39 @@ export function getDecks() {
     });
 }
 
-export function submitCard(deckTitle, question, answer, stateUpdater) {
+/**
+ * Retrieve a single deck by deck name
+ *
+ * @param deckName
+ * @returns {*|PromiseLike<T | never>|Promise<T | never>}
+ */
+export function getSingleDeck(deckName) {
+  //Obtain the data from the AsyncStorage
+  return AsyncStorage.getItem(STORAGE_KEY)
+    .then(result => {
+      const parsedResult = JSON.parse(result);
+
+      for (let key in parsedResult) {
+        if (
+          parsedResult.hasOwnProperty(key) &&
+          key === deckName
+        ) return parsedResult[key]
+      }
+    })
+}
+
+/**
+ * Adds a new card to an existing deck
+ * The card is composed by a question and an answer
+ * The "stateUpdater" is a function that gets passed by a parent Component
+ * for updating it from a child
+ *
+ * @param deckTitle
+ * @param question
+ * @param answer
+ * @param stateUpdater
+ */
+export function submitCard(deckTitle, question, answer) {
   //Retrieve the Item
   AsyncStorage.getItem(STORAGE_KEY)
     .then(storage => {
@@ -35,15 +76,30 @@ export function submitCard(deckTitle, question, answer, stateUpdater) {
       };
       parsedStorage[deckTitle].questions.push(objToAdd);
 
-      AsyncStorage.mergeItem(STORAGE_KEY, JSON.stringify(parsedStorage))
-        .then(() => stateUpdater());
+      AsyncStorage.mergeItem(STORAGE_KEY, JSON.stringify(parsedStorage));
     });
+}
+
+export function addDeck(deckTitle) {
+  return AsyncStorage.getItem(STORAGE_KEY)
+    .then(storage => {
+      let parsedStorage = JSON.parse(storage);
+      parsedStorage[deckTitle] = {
+        key: deckTitle,
+        questions: [],
+        title: deckTitle
+      };
+
+      // console.log(parsedStorage);
+
+      AsyncStorage.mergeItem(STORAGE_KEY, JSON.stringify(parsedStorage));
+    })
 }
 
 export function removeEntry(key) {
   return AsyncStorage.getItem(STORAGE_KEY)
-    .then((results) => {
-      const data = JSON.parse(results);
+    .then(storage => {
+      const data = JSON.parse(storage);
       data[key] = undefined;
       delete data[key];
       AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(data));
