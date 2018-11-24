@@ -3,10 +3,21 @@ import {AsyncStorage} from 'react-native';
 
 const NOTIFICATION_KEY = 'flashcard:notifications';
 
+/**
+ * Clear the local notifications
+ *
+ * @returns {*|PromiseLike<T | never>|Promise<T | never>}
+ */
 export function clearLocalNotification () {
   return AsyncStorage.removeItem(NOTIFICATION_KEY)
     .then(Notifications.cancelAllScheduledNotificationsAsync())
 }
+
+/**
+ * Create a new notification for both iOS and Android
+ *
+ * @returns {{title: string, body: string, ios: {sound: boolean}, android: {sound: boolean, priority: string, sticky: boolean, vibrate: boolean}}}
+ */
 function createNotification() {
   return {
     title: 'Notification title',
@@ -23,6 +34,9 @@ function createNotification() {
   }
 }
 
+/**
+ * Set a notification
+ */
 export function setlocalNotification() {
   AsyncStorage.getItem(NOTIFICATION_KEY)
     .then(JSON.parse)

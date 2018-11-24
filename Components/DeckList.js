@@ -32,7 +32,7 @@ export default class DeckList extends Component {
     //Check continuously if the AsyncStorage has new decks and populate the UI
     setInterval(this.initiateDecksData, 5000);
 
-    //Set the notifications
+    //Set the notifications (for the day after the current day)
     setlocalNotification()
   }
 

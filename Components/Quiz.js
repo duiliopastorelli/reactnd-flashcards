@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import {getSingleDeck} from "../utils/api";
 import Toast from "react-native-root-toast";
+import {clearLocalNotification} from "../utils/notifications";
 
 export default class Quiz extends Component {
   state = {
@@ -83,6 +84,9 @@ export default class Quiz extends Component {
         currentQuestionIndex: currentQuestionIndex + 1
       })
     } else {
+      //Clear the notification system
+      clearLocalNotification();
+
       //There are no more questions, UI will display the results
       setTimeout(() => {
         this.setState({isDisplayingScores: true})
@@ -149,7 +153,9 @@ export default class Quiz extends Component {
             <Text style={{fontSize: 20, marginBottom: 10}}>
               Wrong answers: {this.state.wrongAnswers}</Text>
 
-            <TouchableOpacity onPress={() => {this.createQuizzes()}}>
+            <TouchableOpacity onPress={() => {
+              this.createQuizzes()
+            }}>
               <Text style={{padding: 10}}>Start again!</Text>
             </TouchableOpacity>
           </View>
