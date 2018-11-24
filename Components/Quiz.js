@@ -2,7 +2,10 @@ import React, {Component} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import {getSingleDeck} from "../utils/api";
 import Toast from "react-native-root-toast";
-import {clearLocalNotification} from "../utils/notifications";
+import {
+  clearLocalNotification,
+  setlocalNotification
+} from "../utils/notifications";
 
 export default class Quiz extends Component {
   state = {
@@ -84,8 +87,9 @@ export default class Quiz extends Component {
         currentQuestionIndex: currentQuestionIndex + 1
       })
     } else {
-      //Clear the notification system
-      clearLocalNotification();
+      //Clear the notification system and set another one for the day after
+      clearLocalNotification()
+        .then(setlocalNotification);
 
       //There are no more questions, UI will display the results
       setTimeout(() => {
