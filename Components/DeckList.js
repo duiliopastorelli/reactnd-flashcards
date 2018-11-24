@@ -3,6 +3,7 @@ import {View, StyleSheet, FlatList, AsyncStorage} from 'react-native';
 import {getDecks, initiateStorage} from '../utils/api';
 import StatusbarSpace from './StatusbarSpace';
 import DeckListElement from "./DeckListElement";
+import { setlocalNotification} from "../utils/notifications";
 
 export default class DeckList extends Component {
 
@@ -11,7 +12,7 @@ export default class DeckList extends Component {
   };
 
   //Initiates the data for the UI
-  initiateDecksData = ()=> {
+  initiateDecksData = () => {
     //Initiates the AsyncStorage
     initiateStorage();
 
@@ -30,6 +31,9 @@ export default class DeckList extends Component {
 
     //Check continuously if the AsyncStorage has new decks and populate the UI
     setInterval(this.initiateDecksData, 5000);
+
+    //Set the notifications
+    setlocalNotification()
   }
 
   //Render function for FlatList Component

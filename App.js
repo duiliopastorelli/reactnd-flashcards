@@ -9,7 +9,6 @@ import NewDeck from "./Components/NewDeck";
 import Quiz from "./Components/Quiz";
 
 class App extends React.Component {
-
   render() {
     return (
       <View style={styles.container}></View>

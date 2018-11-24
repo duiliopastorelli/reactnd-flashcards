@@ -87,8 +87,6 @@ export function addDeck(deckTitle) {
         title: deckTitle
       };
 
-      // console.log(parsedStorage);
-
       AsyncStorage.mergeItem(STORAGE_KEY, JSON.stringify(parsedStorage));
     })
 }
