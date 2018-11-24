@@ -27,7 +27,6 @@ class DeckListElement extends Component {
               this.props.navigation.navigate('DeckDetails', {
                 title: this.props.title,
                 questions: this.props.questions,
-                stateUpdater: this.props.stateUpdater,
               });
             }}
           >

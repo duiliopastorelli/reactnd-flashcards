@@ -27,6 +27,9 @@ export default class DeckList extends Component {
   componentDidMount() {
     //Get the Decks data for populate the UI
     this.initiateDecksData();
+
+    //Check continuously if the AsyncStorage has new decks and populate the UI
+    setInterval(this.initiateDecksData, 5000);
   }
 
   //Render function for FlatList Component
@@ -34,18 +37,7 @@ export default class DeckList extends Component {
     return <DeckListElement
       {...item}
       updateDeck={this.updateDeck}
-      stateUpdater={this.stateUpdater}
     />
-  };
-
-  //Updates the state from somewhere else in the App
-  stateUpdater = () => {
-    getDecks()
-      .then((result) => {
-        this.setState({
-          decks: result
-        })
-      });
   };
 
   render() {

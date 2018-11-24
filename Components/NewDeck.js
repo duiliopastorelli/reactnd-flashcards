@@ -33,9 +33,6 @@ export default class NewDeck extends Component {
   handleDeckCreation = () => {
     addDeck(this.state.newDeckTitle)
       .then(() => {
-        // console.log(this.props.navigation.state.params.stateUpdater);
-
-        // this.props.navigation.navigate('DeckList');
         this.props.navigation.navigate('DeckDetails',
           { title: this.state.newDeckTitle });
       });

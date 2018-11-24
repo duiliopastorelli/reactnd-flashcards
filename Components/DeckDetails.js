@@ -26,7 +26,6 @@ class DeckDetails extends Component {
           onPress={() => {
             this.props.navigation.navigate('AddCard', {
               DeckDetails: this,
-              stateUpdater: this.props.navigation.state.params.stateUpdater,
             })
           }
           }

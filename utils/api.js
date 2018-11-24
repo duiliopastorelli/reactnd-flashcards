@@ -57,13 +57,10 @@ export function getSingleDeck(deckName) {
 /**
  * Adds a new card to an existing deck
  * The card is composed by a question and an answer
- * The "stateUpdater" is a function that gets passed by a parent Component
- * for updating it from a child
  *
  * @param deckTitle
  * @param question
  * @param answer
- * @param stateUpdater
  */
 export function submitCard(deckTitle, question, answer) {
   //Retrieve the Item

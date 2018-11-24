@@ -51,10 +51,9 @@ export default class AddCard extends Component {
         this.props.navigation.state.params.DeckDetails.state.deckTitle;
       const question = this.state.question;
       const answer = this.state.answer;
-      const stateUpdater = this.props.navigation.state.params.stateUpdater;
 
       //Updates the AsyncStorage
-      submitCard(deckTitle, question, answer, stateUpdater);
+      submitCard(deckTitle, question, answer);
 
       //Navigates back to the previous screen
       this.props.navigation.goBack(null);
